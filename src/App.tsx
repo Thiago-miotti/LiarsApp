@@ -83,55 +83,27 @@ function App() {
 
   return (
     <div className="flex flex-col items-center h-screen w-screen bg-black">
-      {isMobile ? (
-        <>
-          <div className="flex flex-col items-center justify-center mt-8 p-3 rounded-xl mb-4 w-full">
-            <h1 className="text-4xl font-bold mb-8 text-purple-500">
-              Liar's bar app
-            </h1>
-            <div className="flex flex-col gap-3 w-full">
-              <input
-                type="text"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                placeholder="Nome"
-                className="border border-purple-500 rounded px-4 w-full h-[50px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                onClick={addPlayer}
-                disabled={players.length >= 4}
-                className="bg-purple-400 text-white  rounded disabled:bg-gray-300 h-[50px] w-full"
-              >
-                Adicionar
-              </button>
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="flex flex-col items-center justify-center mt-8 p-3 rounded-xl mb-4 w-[300px]">
-            <h1 className="text-4xl font-bold mb-8 text-purple-500">
-              Liar's bar app
-            </h1>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                placeholder="Nome"
-                className="border border-purple-500 rounded px-4 w-[150px] h-[50px]  focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                onClick={addPlayer}
-                disabled={players.length >= 4}
-                className="bg-purple-400 text-white  rounded disabled:bg-gray-300 h-[50px]"
-              >
-                Adicionar
-              </button>
-            </div>
-          </div>
-        </>
-      )}
+      <div className="flex flex-col items-center justify-center mt-8 p-3 rounded-xl mb-4 w-[300px]">
+        <h1 className="text-4xl font-bold mb-8 text-purple-500">
+          Liar's bar app
+        </h1>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+            placeholder="Nome"
+            className="border border-purple-500 rounded px-4 w-[150px] h-[50px]  focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={addPlayer}
+            disabled={players.length >= 4}
+            className="bg-purple-400 text-white  rounded disabled:bg-gray-300 h-[50px]"
+          >
+            Adicionar
+          </button>
+        </div>
+      </div>
       <div className="flex flex-col gap-2">
         <ul className="space-y-4">
           {players.map((player, index) => (
@@ -213,7 +185,7 @@ function App() {
                       <img
                         src={DeadSte}
                         alt="Morreu"
-                        className="w-[400px] h-[400px]"
+                        className="w-[400px] h-[200px]"
                       />
                     ) : (
                       <img
