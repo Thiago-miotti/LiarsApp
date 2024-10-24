@@ -9,14 +9,23 @@ import {
 import { useEffect, useState } from "react";
 import DeadSte from "./assets/DeadSte.jpeg";
 import Vivo from "./assets/Vivo.jpeg";
+
 interface Player {
   name: string;
   lives: number;
   eliminated: boolean;
+  roulette: string[];
 }
 
 const MAX_LIVES = 6;
-const ROULETTE = ["Salvo", "Salvo", "Salvo", "Salvo", "Salvo", "Se fodeu"];
+const INITIAL_ROULETTE = [
+  "Salvo",
+  "Salvo",
+  "Salvo",
+  "Salvo",
+  "Salvo",
+  "Se fodeu",
+];
 
 function App() {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -30,7 +39,12 @@ function App() {
     if (players.length < 4 && playerName) {
       setPlayers([
         ...players,
-        { name: playerName, lives: 0, eliminated: false },
+        {
+          name: playerName,
+          lives: 0,
+          eliminated: false,
+          roulette: [...INITIAL_ROULETTE],
+        },
       ]);
       setPlayerName("");
     }
@@ -59,22 +73,34 @@ function App() {
 
     setTimeout(() => {
       const updatedPlayers = [...players];
+      const currentPlayer = updatedPlayers[index];
 
-      let result;
-      if (updatedPlayers[index].lives === 5) {
+      let result: string;
+
+      if (currentPlayer.lives === 5) {
         result = "Se fodeu";
       } else {
-        result = ROULETTE[Math.floor(Math.random() * ROULETTE.length)];
-      }
+        const roulette = currentPlayer.roulette;
+        const randomIndex = Math.floor(Math.random() * roulette.length);
+        result = roulette[randomIndex];
 
-      if (result === "Se fodeu") {
-        updatedPlayers[index].eliminated = true;
-      } else {
-        if (updatedPlayers[index].lives < MAX_LIVES) {
-          updatedPlayers[index].lives += 1;
+        if (result === "Salvo") {
+          const salvoIndex = roulette.indexOf("Salvo");
+          if (salvoIndex !== -1) {
+            currentPlayer.roulette.splice(salvoIndex, 1);
+          }
         }
       }
 
+      if (result === "Se fodeu") {
+        currentPlayer.eliminated = true;
+      } else {
+        if (currentPlayer.lives < MAX_LIVES) {
+          currentPlayer.lives += 1;
+        }
+      }
+
+      updatedPlayers[index] = currentPlayer;
       setPlayers(updatedPlayers);
 
       setIsSpinning(false);
