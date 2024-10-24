@@ -122,7 +122,6 @@ function App() {
         >
           Finalizar Jogo
         </button>
-        <button onClick={onOpen}>Modal</button>
       </div>
       <Modal
         isOpen={isOpen}
