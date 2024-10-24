@@ -58,8 +58,14 @@ function App() {
     onOpen();
 
     setTimeout(() => {
-      const result = ROULETTE[Math.floor(Math.random() * ROULETTE.length)];
       const updatedPlayers = [...players];
+
+      let result;
+      if (updatedPlayers[index].lives === 5) {
+        result = "Se fodeu";
+      } else {
+        result = ROULETTE[Math.floor(Math.random() * ROULETTE.length)];
+      }
 
       if (result === "Se fodeu") {
         updatedPlayers[index].eliminated = true;
